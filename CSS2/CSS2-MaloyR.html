@@ -1,0 +1,28 @@
+<!--
+  Robert Maloy
+  COP 3834C-01 Web Application Development
+  CSS2
+  20 September 2017 -->
+<style>
+p {color: yellow}
+p + div > p { color: cyan}
+p + div > p + div { color: brown }
+p + div > p + div > p { color: brown }
+p + div + p { color: red }
+p + div + p + p { color: green }
+</style>
+
+<html>
+<body>
+ <p> Here should be yellow </p>
+ <div>
+ <p> Here should be cyan </p>
+ <div>
+ Content of this division should be brown
+ <p>Some text</p>
+ </div>
+ <p> Here should be red </p>
+ <p> Here should be green </p>
+ </div>
+</body>
+</html>
