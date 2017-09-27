@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<style>
+p.explanation {
+  max-width:500px;
+  color: rgb(205, 0, 0);
+}
+</style>
+<body>
+
+  <h2>Using the Prefix and Suffix Operators</h2>
+
+  <p id="initial"></p>
+
+  <button onclick="PrefixIncrease()">++x</button>
+  <button onclick="SuffixIncrease()">x++</button>
+  <button onclick="PrefixDecrease()">--x</button>
+  <button onclick="SuffixDecrease()">x--</button>
+
+<p id="notice"></p>
+<div><p class="explanation" id="explanation">This will let you use the operator functions listed above to change the value of x and y.</p></div>
+
+  <script>
+  var x = 10;
+  var y = 5;
+  printHTML("initial", x, y);
+  function printHTML(urlName, valueObj, valueObj2) {
+    document.getElementById(urlName).innerHTML = "x == " +  valueObj + "<br>" + "y == " + valueObj2
+  }
+  function printNotice(urlName, value) {
+    document.getElementById(urlName).innerHTML = value;
+  }
+  function printExplanation(data) {
+    document.getElementById("explanation").innerHTML = data;
+  }
+  function PrefixIncrease() {
+    y =++x;
+    printHTML("initial", x, y);
+    printNotice("notice", "You have prefix incremented.");
+    printExplanation("Using the function ++x is basically adding 1 to x, and then returning it. This means that you are increasing the value of x before doing anything else. This means that both x and y will have the same value when returned.")
+  }
+  function SuffixIncrease() {
+    y = x++;
+    printHTML("initial", x, y);
+    printNotice("notice", "You have suffix incremented.");
+    printExplanation("Using the function x++ is <b>returning the value</b> of x before incrementing it, thus meaning that there is a different value. This means that x and y will have a gap of one when they both return. ")
+  }
+  function PrefixDecrease() {
+    y = --x;
+    printHTML("initial", x, y);
+    printNotice("notice", "You have prefix subtracted.");
+        printExplanation("Using the function --x is basically removing 1 to x, and then returning it. This means that you are decreasing the value of x before doing anything else. This means that both x and y will have the same value when returned.")
+  }
+  function SuffixDecrease() {
+    y = x--;
+    printHTML("initial", x, y);
+    printNotice("notice", "You have suffix subtracted.");
+        printExplanation("Using the function x-- is <b>returning the value</b> of x before reducing it, thus meaning that there is a different value. This means that x and y will have a gap of 1 when they both return. ")
+  }
+</script>
+</body>
+</html>
