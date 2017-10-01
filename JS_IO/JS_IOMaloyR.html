@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<style>
+  body {
+    background-color: rgb(97, 139, 88);
+  }
+
+  h2,
+  p {
+    max-width: 500px;
+    color: rgb(255, 255, 255);
+  }
+</style>
+
+<body>
+
+  <h2>Numerical sets and functions</h2>
+  <p>Today, you and I are going to create a lovely assortment of numbers using JavaScript, and then dump that into creating different values. It's a very simple process, really. Just follow along, my child, and you will find rich rewards. Please stick to
+    decimal numbers...</p>
+
+  <button onclick="grabValues()">Get started!</button>
+
+  <p id="numbers"></p>
+  <p id="actualNum"></p>
+  <p id="average"></p>
+  <p id="maximum"></p>
+  <p id="minimum"></p>
+
+  <script>
+    var a = 0;
+
+    function grabValues() {
+      var numbers = [];
+      var i = 0;
+      document.getElementById("numbers").innerHTML = "<b>Your lucky numbers are...</b>"
+      while (i < 4) {
+        numbers[i] = parseInt(prompt("Please enter a numerical value.", ""));
+        i++;
+      }
+      document.getElementById("actualNum").innerHTML = "<b>" + numbers[0] + ", " + numbers[1] + ", " + numbers[2] + ", " + numbers[3] + "</b>";
+      for (i = 0; i < numbers.length; i++) {
+        a = a + numbers[i];
+      }
+      var avg = a / numbers.length;
+      var max = Math.max.apply(Math, numbers);
+      var min = Math.min.apply(Math, numbers);
+      alert("Your average value is " + avg + "!");
+      document.write("<h2>And now something completely different...</h2><b>Your maximum number is " + max + "</b>" + '<p id="minimum"></p>');
+      document.getElementById("minimum").innerHTML = "<b>Your minimum number is " + min + "</b>";
+    }
+  </script>
+
+</body>
+
+</html>
