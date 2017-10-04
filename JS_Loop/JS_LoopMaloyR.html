@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<style>
+  body {
+    background-color: rgb(0,0,0);
+    color: white;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  img.portrait {
+    margin-bottom: 3mm;
+  }
+
+  .content:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    background-image: url("http://images2.fanpop.com/image/photos/9100000/aurora-apple-inc-9137669-1680-1050.jpg");
+    background-position: top center !important;
+    background-repeat: no-repeat !important;
+    width: 100%;
+    height: 100%;
+    opacity: 0.75;
+
+    -webkit-filter: blur(20px);
+    -moz-filter: blur(20px);
+    -o-filter: blur(20px);
+    -ms-filter: blur(20px);
+    filter: blur(20px) ;
+    overflow: hidden;
+    transform: scale(1.1);
+  }
+
+  .content {
+    position: relative;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+</style>
+<div class="background">
+  <div class="content">
+<body>
+
+  <h2>JavaScript Loops</h2>
+  <p>Today, you and I are going to make some loops, and have fun with it.</p>
+
+  <button onclick="grabValues()">Get started!</button>
+
+  <p id="numbers"></p>
+  <p id="actualNum"></p>
+  <p id="avg"></p>
+  <p id="minimum"></p>
+  <p id="maximum"></p>
+
+  <script>
+    var a = 0;
+
+    function grabValues() {
+      var numbers = [];
+      var i = 0;
+      document.getElementById("numbers").innerHTML = "<b>Your lucky numbers are...</b>"
+      b = parseInt(prompt("How many values do you want to grab?"));
+      while (i < b) {
+        numbers[i] = parseInt(prompt("Please enter a numerical value.", ""));
+        i++;
+      }
+      document.getElementById("actualNum").innerHTML = "<b>" + numbers[0] + ", " + numbers[1] + ", " + numbers[2] + ", " + numbers[3] + "</b>";
+      for (i = 0; i < numbers.length; i++) {
+        a = a + numbers[i];
+      }
+      var avg = a / numbers.length;
+      var max = Math.max.apply(Math, numbers);
+      var min = Math.min.apply(Math, numbers);
+      document.getElementById("avg").innerHTML = "<b>Your average is " + avg + "</b>";
+      document.getElementById("maximum").innerHTML = "<b>Your maximum number is " + max + "</b>";
+      document.getElementById("minimum").innerHTML = "<b>Your minimum number is " + min + "</b>";
+    }
+  </script>
+
+</body>
+
+</html>
