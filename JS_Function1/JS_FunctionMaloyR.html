@@ -1,0 +1,137 @@
+<!--
+  Robert Maloy
+  COP 3834C-01 Web Application Development
+  JS_Function
+  11 October 2017 -->
+<!--
+    Robert Maloy
+    COP 3834C-01 Web Application Development
+    JS_Selection
+    4 October 2017 -->
+
+<html>
+<style>
+  body {
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  img.portrait {
+    margin-bottom: 3mm;
+  }
+
+  p {
+    max-width: 500px;
+  }
+
+  .content:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    background-image: url("https://i.imgur.com/b47hcDW.jpg");
+    background-position: 50% 65% !important;
+    background-repeat: no-repeat !important;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    overflow: hidden;
+    transform: scale(1.1);
+  }
+
+  .content {
+    position: relative;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+</style>
+<div class="background">
+  <div class="content">
+
+    <body>
+
+      <h1>JavaScript Functions (for Kids!)</h1>
+      <p>Would you like to play a game using infantile HTML that has no place in a productive environment because it's sloppy and cost-cutting?</p>
+
+      <button id="start" onclick="grabValues()">Get started!</button>
+
+      <p id="numbers"></p>
+      <p id="actualNum"></p>
+      <p id="avg"></p>
+      <p id="minimum"></p>
+      <p id="maximum"></p>
+
+      <script>
+        var a = 0;
+        var numbers = [];
+        var i = 0;
+        var q = 0;
+        var max = 0;
+        var min = 0;
+        var avg = 0;
+
+        function grabValues() {
+          document.getElementById("numbers").innerHTML = "<b>Your lucky numbers are...</b>"
+          while (i < 3) {
+            numbers[i] = parseInt(prompt("Please enter a numerical value.", ""));
+            if (isNaN(numbers[i]))
+            {
+              numbers[i] = parseInt("0");
+            }
+            i++;
+          }
+          numbers.sort(function(a, b){return a-b});
+          document.getElementById("actualNum").innerHTML = "<b>" + numbers + "</b>";
+          for (i = 0; i < numbers.length; i++) {
+            a = a + numbers[i];
+          }
+          mid3();
+        }
+      function mid3() {
+        avg = numbers[1];
+        document.getElementById("avg").innerHTML = "<b>Your median is " + avg + "</b>";
+        max3();
+      }
+      function max3() {
+        numbers.sort(function(a, b){return b-a});
+        max = numbers[0];
+        document.getElementById("maximum").innerHTML = "<b>Your maximum number is " + max + "</b>";
+        min3();
+
+      }
+      function min3() {
+        numbers.sort(function(a, b){return a-b});
+        min = numbers[0];
+        document.getElementById("minimum").innerHTML = "<b>Your minimum number is " + min + "</b>";
+        clearOut();
+      }
+      function clearOut()
+      {
+      a = 0;
+      i = 0;
+      avg = 0;
+      max = 0;
+      min = 0;
+      }
+
+      </script>
+
+    </body>
+
+</html>
