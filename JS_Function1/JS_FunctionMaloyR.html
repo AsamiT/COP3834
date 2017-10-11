@@ -67,7 +67,7 @@
     <body>
 
       <h1>JavaScript Functions (for Kids!)</h1>
-      <p>Would you like to play a game using infantile HTML that has no place in a productive environment because it's sloppy and cost-cutting?</p>
+      <p>Would you like to play a game using clunky and outdated HTML and JavaScript standards that have no place in a productive environment because it's sloppy and cost-cutting?</p>
 
       <button id="start" onclick="grabValues()">Get started!</button>
 
@@ -84,26 +84,31 @@
         var i = 0;
         var numbers = [];
 
+        function deploy() {
+          a = numbers[0];
+          b = numbers[1];
+          c = numbers[2];
+        }
+
         function mid3(a,b,c) {
-          numbers.sort();
-          avg = numbers[1];
-          document.getElementById("avg").innerHTML = "<b>Your median is " + avg + "</b>";
+          deploy();
+          document.getElementById("avg").innerHTML = "<b>Your median is " + b + "</b>";
         }
 
         function max3(a,b,c) {
           numbers.sort(function(a, b) {
-            return b - a
+            return a - b
           });
-          max = numbers[0];
-          document.getElementById("maximum").innerHTML = "<b>Your maximum number is " + max + "</b>";
+          deploy();
+          document.getElementById("maximum").innerHTML = "<b>Your maximum number is " + c + "</b>";
         }
 
         function min3(a,b,c) {
           numbers.sort(function(a, b) {
             return a - b
           });
-          min = numbers[0];
-          document.getElementById("minimum").innerHTML = "<b>Your minimum number is " + min + "</b>";
+          deploy();
+          document.getElementById("minimum").innerHTML = "<b>Your minimum number is " + a + "</b>";
           clearOut();
         }
 
@@ -116,16 +121,14 @@
             }
             i++;
           }
-          a = numbers[0];
-          b = numbers[1];
-          c = numbers[2];
           numbers.sort(function(a, b) {
             return a - b
           });
-          document.getElementById("actualNum").innerHTML = "<b>" + numbers + "</b>";
-          mid3();
-          max3();
-          min3();
+          deploy();
+          document.getElementById("actualNum").innerHTML = "<b>" + a + ", " + b + ", " + c + "</b>";
+          mid3(a,b,c);
+          max3(a,b,c);
+          min3(a,b,c);
           clearOut();
         }
         function clearOut() {
