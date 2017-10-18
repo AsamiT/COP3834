@@ -1,0 +1,151 @@
+<!--
+  Robert Maloy
+  COP 3834C-01 Web Application Development
+  Stupid Javascript Function
+  18 October 2017 -->
+
+<html>
+<style>
+  body {
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  img.portrait {
+    margin-bottom: 3mm;
+  }
+
+  p,
+  div * {
+    max-width: 500px;
+  }
+
+  p.no {
+    color: red;
+  }
+
+  p.yes {
+    color: blue;
+  }
+
+  .content:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    background-image: url("https://i.imgur.com/cDeki9m.jpg");
+    background-position: 50% 65% !important;
+    background-repeat: no-repeat !important;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    overflow: hidden;
+    transform: scale(1.1);
+  }
+
+  .content {
+    position: relative;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+</style>
+<div class="background">
+  <div class="content">
+
+    <body>
+
+      <h1>Functions II: Electric Boogaloo</h1>
+      <p>What is a prime number? A number that cannot be divided by any other number but itself and one. Today, we are going to show you the wonderful world of prime numbers.</p>
+
+      <button id="start" onclick="init()">Get started!</button>
+
+      <p id="numChosen"></p>
+      <div id="internals"></div>
+      <div id="internals2"></div>
+
+      <script>
+        var primearray = [];
+        var notprime = [];
+        var a = 0;
+
+        function init() {
+          cleanUp();
+          a = parseInt(prompt("Please enter a numerical value."));
+          document.getElementById("numChosen").innerHTML = "<b>Your chosen number is...</b>" + a;
+          printPrime(a);
+        }
+
+        function printPrime(a) {
+          var primes = [];
+          for (var i = 2; i < a; i++) {
+            primes[i] = true;
+          }
+          for (var i = 2; i < (a * a); i++) {
+            if (primes[i] === true) {
+              for (var j = i * i; j < a; j += i) {
+                primes[j] = false;
+              }
+            }
+          }
+          for (var i = 2; i < a; i++) {
+            if (primes[i] === true) {
+              primearray.push(i);
+            } else {
+              notprime.push(i);
+            }
+          }
+          var mention = document.createElement("p");
+          var mention2 = document.createElement("p");
+          var para = document.createElement("p");
+          var para2 = document.createElement("p");
+          var element2 = document.getElementById("internals2");
+          var element = document.getElementById("internals");
+
+          para.setAttribute("class", "yes");
+          element.appendChild(mention);
+          mention.appendChild(document.createTextNode("Prime Numbers"));
+
+          for (var b = 0; b < primearray.length; b++) {
+            element.appendChild(para);
+            para.appendChild(document.createTextNode(primearray[b]));
+            para.appendChild(document.createElement("br"));
+          }
+
+          para2.setAttribute("class", "no");
+          element.appendChild(mention2);
+          mention2.appendChild(document.createTextNode("Composite Numbers"));
+
+          for (var b = 0; b < notprime.length; b++) {
+            element2.appendChild(para2);
+            para2.appendChild(document.createTextNode(notprime[b]));
+            para2.appendChild(document.createElement("br"));
+          }
+        }
+
+        function cleanUp() {
+          primearray = [];
+          notprime = [];
+          document.getElementById("internals").innerHTML = "";
+          document.getElementById("internals2").innerHTML = "";
+        }
+      </script>
+
+    </body>
+
+</html>
