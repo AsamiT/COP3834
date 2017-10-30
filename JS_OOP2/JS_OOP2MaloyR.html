@@ -1,0 +1,151 @@
+<!--
+  Robert Maloy
+  COP 3834C-01 Web Application Development
+  JS_OOP1
+  30 October 2017 -->
+
+<html>
+<style>
+  body {
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  img.portrait {
+    margin-bottom: 3mm;
+  }
+
+  p,
+  div * {
+    max-width: 500px;
+  }
+
+  .content:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    background-image: url("https://media.mnn.com/assets/images/2017/06/steve-irwin-crocodile-01.jpg");
+    background-position: 40% 30% !important;
+    background-repeat: no-repeat !important;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+    overflow: hidden;
+    transform: scale(1.1);
+  }
+
+  .content {
+    position: relative;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  
+  .hide {
+    display: none;
+  }
+
+  .show {
+    display: block;
+  }
+
+  
+</style>
+<div class="background">
+  <div class="content">
+
+ <body>
+
+  <img src="https://i.imgur.com/ulchs5k.png" alt="Jeremy Clarkson being a git">
+  <p>
+    Did you know that apparently, an alligator can have the literal snot beat out of it by a bulldog? Or maybe that's just Floridian breeds, like the Florida Buccaneer, or the Florida Lightningbug.
+  </p>
+  <p>
+  Being a Floridian and loving your hometown teams is always a painful journey.</p>
+
+  <button id="clicky" onclick="block_none()">Go!</button>
+  <div id="first">
+	<hr>
+    <p id="junk"></p>
+    <ol id="davefood"></ol>
+  </div>
+  <div id="second">
+    <p id="garbage"></p>
+    <ol id="peteyfood"></ol>
+  </div>
+
+
+  <script>
+	function Gator(name, age, length, speed) {
+		this.name = name;
+		this.age = parseInt(age);
+		this.length = parseInt(length);
+		this.speed = parseInt(speed);
+	}
+	  
+    var erste_Gator = new Gator();
+    var zweiGator = new Gator();
+    var element = document.getElementById("second");
+    var elemOne = document.getElementById("first");
+
+    function block_none() {
+      document.getElementById('first').classList.add('show');
+      document.getElementById('clicky').classList.add('hide');
+      init();
+    }
+
+    function init() {
+	  erste_Gator.name = "Dave";
+	  erste_Gator.age = "26"; //yrs
+	  erste_Gator.length = "13.1";//ft
+	  erste_Gator.speed = "11.7"; //ft/sec
+	  zweiGator.name = "Petey";
+      zweiGator.age = "2" //yrs
+      zweiGator.length = "5" //feet
+      zweiGator.speed = "11.7" //feet per sec
+      display();
+    }
+
+    function display() {
+      document.getElementById("junk").innerHTML = erste_Gator.name + " is a hungry, hungry gator. After " + erste_Gator.age + " years, he wants to eat as much as he possibly can to fill his " + erste_Gator.length + " foot long torso. With breakneck speed he attacks his prey at a blistering " + erste_Gator.speed + " feet per second.";
+      document.getElementById("garbage").innerHTML = zweiGator.name + " is a hungry, hungry baby gator. After " + zweiGator.age + " years, he wants to eat as much as he possibly can to fill his " + zweiGator.length + " feet long torso, and be like his big brother " + erste_Gator.name + ". With breakneck speed, he attacks his prey at a blistering " + zweiGator.speed + " feet per second." + "<br>";
+      eat();
+    }
+
+    function eat() {
+		var youngfood = ['Fish', 'Insects', 'Crustaceans', 'Worms']
+		var maturefood = ['Turtles','Muskrat','Human','Birds','Deer','Dogs','Florida Panthers']
+		davefood.appendChild(document.createTextNode('Favorite foods:'));
+		peteyfood.appendChild(document.createTextNode('Favorite foods:'));
+		for (var b = 0; b < maturefood.length; b++) {
+			var dave_entry = document.createElement('li');
+			dave_entry.appendChild(document.createTextNode(maturefood[b]));
+			davefood.appendChild(dave_entry);
+		}
+		for (var b = 0; b < youngfood.length; b++) {
+				var entry = document.createElement('li');
+				entry.appendChild(document.createTextNode(youngfood[b]));
+				peteyfood.appendChild(entry);
+		}
+    }
+  </script>
+
+</body>
+
+</html>
