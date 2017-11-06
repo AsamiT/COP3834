@@ -1,0 +1,164 @@
+<!--
+  Robert Maloy
+  COP 3834C-01 Web Application Development
+  JS_DOM2
+  6 November 2017 -->
+
+<html>
+<meta charset="utf-8">
+<style>
+  body {
+    background-color: rgb(0, 0, 0);
+    color: white;
+  }
+
+  img.portrait {
+    margin-bottom: 3mm;
+  }
+
+  p,
+  div * {
+    max-width: 500px;
+  }
+
+  table,
+  th,
+  td {
+    border: 2px solid white;
+    width: 100px;
+    text-align: center;
+  }
+
+  .content:before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+
+    display: block;
+    background-image: url("https://i.imgur.com/f3cjmUM.png");
+    background-position: left 40% !important;
+    background-repeat: no-repeat !important;
+    width: 100%;
+    height: 100%;
+    opacity: 0.7;
+
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px) saturate(120%);
+    overflow: hidden;
+    transform: scale(1.1);
+  }
+
+  .content {
+    position: relative;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .hide {
+    display: none;
+  }
+
+  .show {
+    display: block;
+  }
+</style>
+<div class="background">
+  <div class="content">
+
+    <h1>JavaScript DOM</h1>
+    <p>
+      More commonly called 'voodoo programming' or 'shamanist programming', our hopes and dreams of this pile of nonsense working are held together by two-ply toilet paper, Gorilla Glue, and a hell of a lot of tape.
+    </p>
+
+    <body>
+
+      <button id="clicky" onclick="init()">Step >></button>
+      <table>
+        <tr>
+          <td>
+            A
+          </td>
+          <td>
+            B
+          </td>
+        </tr>
+        <tr>
+          <td>
+            C
+          </td>
+          <td>
+            D
+          </td>
+        </tr>
+        <tr>
+          <td>
+            E
+          </td>
+          <td>
+            F
+          </td>
+        </tr>
+        <tr>
+          <td>
+            G
+          </td>
+          <td>
+            H
+          </td>
+        </tr>
+        <tr>
+          <td>
+            I
+          </td>
+          <td>
+            J
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        This JavaScript program utilizes arrays, shift and slice to make the movement of data around a given 'area' much easier than trying to direct manipulate it and change the values in a rolling fashion. This way, the 'getElementsByTagName' functions are still use to propagate the changes to the arrays. It's a much cleaner and easier thing.
+      </p>
+
+
+      <script>
+        var tableData = [];
+        var len = document.getElementsByTagName('TD').length;
+
+        function init() {
+          for (i = 0; i < len; i++) {
+            var x = document.getElementsByTagName('TD')[i].innerHTML;
+            tableData.push(x);
+          }
+          move();
+        }
+
+        function move() {
+          popIt();
+          for (i = 0; i < len; i++) {
+            document.getElementsByTagName('TD')[i].innerHTML = tableData[i];
+          }
+        }
+
+        function popIt() {
+          for (i = 0; i <= 1; i++) {
+            var lastTwo = tableData.slice(-2);
+            tableData.unshift(lastTwo[i]);
+          }
+          tableData.splice(-2);
+        }
+      </script>
+
+    </body>
+  </div>
+</div>
+
+</html>
