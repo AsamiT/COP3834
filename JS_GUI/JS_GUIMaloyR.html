@@ -77,15 +77,57 @@
 
     <body>
       <p>
-        Enter your first number, second number, and your length.
+        Enter your first number, second number, and your length; Using the fibonacci sequence (c = a + b), we will write out the full length of your fibonacci sequence using the first number (a), second number (b) and length (d). Note that additional spaces will be added at the start of the list due to needing to display the original values.
       </p>
-      <form id="inputForm" action="/dochdoch.php">
-          First number: <input type="text" name="fname"><br>
-          Second number: <input type="text" name="sname"><br>
-          Length: <input type="text" name="sname"><br>
-          <input type="button" onclick="Submit()" value="Submit">
+      <form id="inputForm">
+          First number: <input type="text" id='fnum'><br>
+          Second number: <input type="text" id="snum"><br>
+          Length: <input type="text" id="len"><br>
+          <input type="button" onclick="init()" value="Submit">
       </form>
+      <p id="finalsequence">
+
+      </p>
       <script>
+        var fibArray = [];
+        function init() {
+          errorCheck();
+          var firstNum = parseInt(document.getElementById('fnum').value);
+          var secondNum = parseInt(document.getElementById('snum').value);
+          var lastNum; //initialized empty because we need a sum value...
+          var length = parseInt(document.getElementById('len').value);
+          //document.getElementById('finalsequence').innerHTML = firstNum + ', ' + secondNum + ', ' + length;
+          fib(firstNum, secondNum, lastNum, length);
+        }
+
+        function errorCheck() {
+          if (isNaN(parseInt(document.getElementById('fnum').value)))
+          {
+            window.alert("You entered an invalid number!");
+            throw new Error();
+          }
+          if (isNaN(parseInt(document.getElementById('snum').value))) {
+            window.alert("You entered an invalid number!");
+            throw new Error();
+          }
+          if (isNaN(parseInt(document.getElementById('len').value))) {
+            window.alert("You entered an invalid number!");
+            throw new Error();
+          }
+        }
+
+        function fib(a, b, c, d) {
+          fibArray.push(a, b); //push first values in, just to set up the way it should look, eh?
+          for(var i = 0; i < d; i++)
+          {
+            c = a + b;
+            a = b;
+            b = c;
+            fibArray.push(c);
+          }
+          document.getElementById('finalsequence').innerHTML = fibArray;
+          fibArray = [];
+        }
       </script>
     </body>
   </div>
