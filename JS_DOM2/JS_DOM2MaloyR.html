@@ -6,70 +6,71 @@
 
 <html>
 <meta charset="utf-8">
-<style>
-  body {
-    background-color: rgb(0, 0, 0);
-    color: white;
-  }
 
-  img.portrait {
-    margin-bottom: 3mm;
-  }
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <style>
+    body {
+      background-color: rgb(0, 0, 0);
+      color: white;
+    }
 
-  p,
-  div * {
-    max-width: 500px;
-  }
+    img.portrait {
+      margin-bottom: 3mm;
+    }
 
-  table,
-  th,
-  td {
-    border: 2px solid white;
-    width: 100px;
-    text-align: center;
-  }
+    p,
+    div * {
+      max-width: 500px;
+    }
 
-  .content:before {
-    content: "";
-    position: fixed;
-    left: 0;
-    right: 0;
-    z-index: -1;
+    div.deploy {
+      margin-bottom: 10px;
+    }
 
-    display: block;
-    background-image: url("https://i.imgur.com/f3cjmUM.png");
-    background-position: left 40% !important;
-    background-repeat: no-repeat !important;
-    width: 100%;
-    height: 100%;
-    opacity: 0.7;
+    table,
+    th,
+    td {
+      border: 2px solid white;
+      width: 300px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
 
-    -webkit-filter: blur(10px);
-    -moz-filter: blur(10px);
-    -o-filter: blur(10px);
-    -ms-filter: blur(10px);
-    filter: blur(10px) saturate(120%);
-    overflow: hidden;
-    transform: scale(1.1);
-  }
+    .content:before {
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: -1;
 
-  .content {
-    position: relative;
-    left: 0;
-    right: 0;
-    z-index: 0;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
+      display: block;
+      background-image: url("https://i.imgur.com/vvyJ70a.jpg");
+      background-position: left 40% !important;
+      background-repeat: no-repeat !important;
+      width: 100%;
+      height: 100%;
+      opacity: 0.7;
 
-  .hide {
-    display: none;
-  }
+      -webkit-filter: blur(10px);
+      -moz-filter: blur(10px);
+      -o-filter: blur(10px);
+      -ms-filter: blur(10px);
+      filter: blur(10px) saturate(120%);
+      overflow: hidden;
+      transform: scale(1.1);
+    }
 
-  .show {
-    display: block;
-  }
-</style>
+    .content {
+      position: relative;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  </style>
+</head>
 <div class="background">
   <div class="content">
 
@@ -78,82 +79,122 @@
       More commonly called 'voodoo programming' or 'shamanist programming', our hopes and dreams of this pile of nonsense working are held together by two-ply toilet paper, Gorilla Glue, and a hell of a lot of tape.
     </p>
 
+    <p id="debug">
+
+    </p>
+    <p id="debug2">
+
+    </p>
+
     <body>
+      <div class="deploy" id="list">
+        <ul>
+          Fruits:
+          <li>
+            Apple
+          </li>
+          <li>
+            Grape
+          </li>
+          <li>
+            Orange
+          </li>
+        </ul>
+      </div>
 
-      <button id="clicky" onclick="init()">Step >></button>
-      <table>
-        <tr>
-          <td>
-            A
-          </td>
-          <td>
-            B
-          </td>
-        </tr>
-        <tr>
-          <td>
-            C
-          </td>
-          <td>
-            D
-          </td>
-        </tr>
-        <tr>
-          <td>
-            E
-          </td>
-          <td>
-            F
-          </td>
-        </tr>
-        <tr>
-          <td>
-            G
-          </td>
-          <td>
-            H
-          </td>
-        </tr>
-        <tr>
-          <td>
-            I
-          </td>
-          <td>
-            J
-          </td>
-        </tr>
-      </table>
+      <div class="deploy" id="table">
+        <table>
+          <tr>
+            <td>
+              North
+            </td>
+            <td>
+              East
+            </td>
+          </tr>
+          <tr>
+            <td>
+              South
+            </td>
+            <td>
+              West
+            </td>
+          </tr>
+        </table>
+      </div>
 
-      <p>
-        This JavaScript program utilizes arrays, shift and slice to make the movement of data around a given 'area' much easier than trying to direct manipulate it and change the values in a rolling fashion. This way, the 'getElementsByTagName' functions are still use to propagate the changes to the arrays. It's a much cleaner and easier thing.
-      </p>
-
+      <button id="clicky" onclick="init()">Change</button>
 
       <script>
+        var initTable, initList;
+        var init_var;
+        initTable = $.makeArray(document.getElementById('table').innerHTML);
+        initList = $.makeArray(document.getElementById('list').innerHTML);
+        var numSet = 0;
+        var tdlen = document.getElementsByTagName('TD').length;
+        var lilen = document.getElementsByTagName('LI').length;
         var tableData = [];
-        var len = document.getElementsByTagName('TD').length;
+        var listData = [];
 
         function init() {
-          for (i = 0; i < len; i++) {
-            var x = document.getElementsByTagName('TD')[i].innerHTML;
-            tableData.push(x);
+
+          if (init_var != 1) {
+            for (i = 0; i < tdlen; i++) {
+              var x = document.getElementsByTagName('TD')[i].innerHTML;
+              tableData.push(x);
+            }
+            for (i = 0; i < lilen; i++) {
+              var x = document.getElementsByTagName('LI')[i].innerHTML;
+              listData.push(x);
+            }
+            init_var = 1;
+            exec();
+          } else {
+            exec();
           }
-          move();
+        }
+        // document.getElementById('debug').innerHTML = tableData; //-- these are debug functions
+        // document.getElementById('debug2').innerHTML = listData; //-- these are debug functions
+        function exec() {
+          if (numSet === 1) {
+            original(listData, tableData);
+          } else {
+            alt(listData, tableData);
+          }
         }
 
-        function move() {
-          popIt();
-          for (i = 0; i < len; i++) {
-            document.getElementsByTagName('TD')[i].innerHTML = tableData[i];
+        function alt(a, b) {
+          numSet = 1;
+          var listDiv = document.getElementById('list');
+          var para = document.createElement('P');
+          var gap = document.createElement('BR');
+          var text = document.createTextNode("Fruits: ");
+          para.appendChild(text);
+          for (i = 0; i < listData.length; i++) {
+            if (i + 1 >= listData.length) {
+              var text = document.createTextNode(listData[i]);
+            } else {
+              var text = document.createTextNode(listData[i] + "or");
+            }
+            para.appendChild(text);
           }
+          listDiv.innerHTML = para.innerHTML;
+          var tableDiv = document.getElementById('table');
+          var newList = document.createElement('OL');
+          for (i = 0; i < tableData.length / 2; i++) {
+            var text = document.createTextNode(tableData[i] + " and " + tableData[i + 2] + gap.innerHTML);
+            var node = document.createElement('LI');
+            node.appendChild(text);
+            newList.appendChild(node);
+          }
+          tableDiv.innerHTML = newList.innerHTML;
         }
 
-        function popIt() {
-          for (i = 0; i <= 1; i++) {
-            var lastTwo = tableData.slice(-2);
-            tableData.unshift(lastTwo[i]);
-          }
-          tableData.splice(-2);
+        function original(a, b) {
+          numSet = 0;
+          $('#table').html(initTable[0]);
+          $('#list').html(initList[0]);
+          //document.getElementById('debug').innerHTML = numSet; //-- these are debug functions
         }
       </script>
 
