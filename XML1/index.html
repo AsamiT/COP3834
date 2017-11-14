@@ -1,0 +1,122 @@
+<!--
+  Robert Maloy
+  COP 3834C-01 Web Application Development
+  XML1
+  13 November 2017 -->
+
+<html>
+<meta charset="utf-8">
+
+<head>
+  <title>XML1</title>
+  <style>
+    body {
+      background-color: rgb(0, 0, 0);
+      color: white;
+      font-family: sans-serif;
+    }
+
+    img.portrait {
+      margin-bottom: 3mm;
+    }
+
+    p,
+    div * {
+      max-width: 500px;
+    }
+
+    div.deploy {
+      margin-bottom: 10px;
+    }
+
+    table,
+    th,
+    td {
+      border: 2px solid white;
+      width: 300px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .content:before {
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: -1;
+
+      display: block;
+      background-image: url("https://i.imgur.com/CSQKAzR.png");
+      background-position: left 10% !important;
+      background-repeat: no-repeat !important;
+      width: 100%;
+      height: 100%;
+      opacity: 0.7;
+
+      -webkit-filter: blur(10px);
+      -moz-filter: blur(10px);
+      -o-filter: blur(10px);
+      -ms-filter: blur(10px);
+      filter: blur(10px) saturate(120%);
+      overflow: hidden;
+      transform: scale(1.1);
+    }
+
+    .content {
+      position: relative;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  </style>
+</head>
+
+<div class="background">
+  <div class="content">
+
+    <body>
+      <h1>Implementing XML</h1>
+      <p>Someone once told me that XML can be accessed on Internet Explorer 5.5 and 6.0, running on OSes as old as Windows 3.1. I say no to that. No backwards compatibility for the savages!</p>
+      <button type="button" onclick="exec()">Load XML</button>
+      <table id="demo">
+
+      </table>
+
+
+    </body>
+  </div>
+</div>
+
+<script>
+  function exec() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        printXML(this);
+      }
+    }
+    xmlhttp.open("GET", "XML1MaloyR.xml", true);
+    xmlhttp.send();
+  }
+
+  function printXML(res) {
+    var i;
+    var xmlDoc = res.responseXML;
+    var table = "<tr><th>Name</th><th>Age</th><th>Curse</th></tr>";
+    var x = xmlDoc.getElementsByTagName("PER");
+    for (i = 0; i < x.length; i++) {
+      table += "<tr><td>" +
+        x[i].getElementsByTagName("NAME")[0].childNodes[0].nodeValue +
+        "</td><td>" +
+        x[i].getElementsByTagName("AGE")[0].childNodes[0].nodeValue +
+        "</td></tr>" +
+        x[i].getElementsByTagName("CURSE")[0].childNodes[0].nodeValue +
+        "</td></tr>";
+    }
+    document.getElementById("demo").innerHTML = table;
+  }
+</script>
+
+</html>
