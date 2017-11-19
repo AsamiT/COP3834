@@ -1,0 +1,129 @@
+<!--
+  Robert Maloy
+  COP 3834C-01 Web Application Development
+  XML1
+  13 November 2017 -->
+
+<html>
+<meta charset="utf-8">
+
+<head>
+  <title>XML1</title>
+  <style>
+    body {
+      background-color: rgb(255, 255, 255);
+      color: black;
+      font-family: sans-serif;
+    }
+
+    img.portrait {
+      margin-bottom: 3mm;
+    }
+
+    p,
+    div * {
+      max-width: 500px;
+    }
+
+    div.deploy {
+      margin-bottom: 10px;
+    }
+
+    table,
+    th,
+    td {
+      border: 2px solid white;
+      width: 300px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .content:before {
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: -1;
+
+      display: block;
+      background-image: url("https://i.imgur.com/yjrIrIs.png");
+      background-position: center 70% !important;
+      background-repeat: no-repeat !important;
+      width: 100%;
+      height: 100%;
+      opacity: 0.7;
+
+      -webkit-filter: blur(5px);
+      -moz-filter: blur(5px);
+      -o-filter: blur(5px);
+      -ms-filter: blur(5px);
+      filter: blur(5px) saturate(120%);
+      overflow: hidden;
+      transform: scale(1.1);
+    }
+
+    .content {
+      position: relative;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  </style>
+</head>
+
+<div class="background">
+  <div class="content">
+
+    <body>
+      <h1>XML2: XML Boogaloo</h1>
+      <p>
+        For once, I don't have much witty to say. Too sick to care at this point.
+      </p>
+      <p id="test">
+
+      </p>
+      <button type="button" onclick="exec()">Load XML</button>
+      <table id="demo">
+
+      </table>
+
+
+    </body>
+  </div>
+</div>
+
+<script>
+  function exec() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        printXML(this)
+      }
+    }
+    xmlhttp.open("GET", "books.xml", true);
+    xmlhttp.send();
+  }
+
+  function printXML(a) {
+    var i;
+    var xmlDoc = a.responseXML;
+    var table = "<tr><th>Title</th><th>Author</th><th>Year</th><th>Price</th></tr>";
+    var x = xmlDoc.getElementsByTagName("per");
+    for (i = 0; i < x.length; i++) {
+      table += "<tr><td>" +
+        x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+        "</td><td>" +
+        x[i].getElementsByTagName("author")[0].childNodes[0].nodeValue +
+        "</td><td>" +
+        x[i].getElementsByTagName("year")[0].childNodes[0].nodeValue +
+        "</td><td>" +
+        x[i].getElementsByTagName("price")[0].childNodes[0].nodeValue +
+        "</td></tr>";
+    }
+    document.getElementById("demo").innerHTML = table;
+  }
+</script>
+
+</html>
