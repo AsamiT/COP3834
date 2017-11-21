@@ -1,0 +1,260 @@
+<!--
+  Robert Maloy
+  COP 3834C-01 Web Application Development
+  XML1
+  13 November 2017 -->
+
+<html>
+<meta charset="utf-8">
+
+<head>
+  <title>XML2</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    img.portrait {
+      margin-bottom: 3mm;
+    }
+
+    p,
+    div * {
+      max-width: 800px;
+    }
+
+    div.deploy {
+      margin-bottom: 10px;
+    }
+
+    table,
+    th,
+    td {
+      padding: 10px;
+      border: 3px solid white;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .content:before {
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: -1;
+
+      display: block;
+      background-image: url("http://i.imgur.com/RQ3Yhs3.png");
+      background-position: center 70% !important;
+      background-repeat: no-repeat !important;
+      width: 100%;
+      height: 100%;
+      opacity: 0.3;
+
+      -webkit-filter: blur(10px);
+      -moz-filter: blur(10px);
+      -o-filter: blur(10px);
+      -ms-filter: blur(10px);
+      filter: blur(10px) saturate(120%);
+      overflow: hidden;
+      transform: scale(1.1);
+    }
+
+    .content {
+      position: relative;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+
+<div class="background">
+  <div class="content" id="divbody">
+
+    <body>
+      <h1>Bookstore of the People</h1>
+      <p>
+        Of course, life is boring in Arstotzka. Much like potato, is warm inside, cold on outside. Hard like winter.
+      </p>
+      <p id="notice">
+
+      </p>
+      <button type="button" id="main" onclick="exec()">Go >></button>
+      <table id="demo">
+      </table>
+    </body>
+  </div>
+</div>
+
+<script>
+  var univTable = "<tr><th>Title</th><th>Author</th><th>Year</th><th>Price (USD)</th><th>Barcode</th></tr>";
+  var upcDec = 9;
+  var stage = 0;
+
+  function exec() {
+    document.getElementById('main').classList.add('hide');
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        printXML(this);
+        XMLplusUPC(this);
+        reduceYear(this);
+      }
+    }
+    xmlhttp.open("GET", "books.xml", true);
+    xmlhttp.send();
+  }
+
+  function printXML(a) {
+    var i;
+    var xmlDoc = a.responseXML;
+    var table = univTable;
+    var x = xmlDoc.getElementsByTagName("book");
+
+    document.getElementById('notice').innerHTML = "We have recieved a shipment, but we don't have a single UPC code in the system yet, and our new calendar as mandated by the Supreme Leader of the Politburo is out of date. We must fix this immediately!";
+
+    for (i = 0; i < x.length; i++) {
+      var b = x[i].getElementsByTagName("title").length;
+      var c = x[i].getElementsByTagName("author").length;
+      var d = x[i].getElementsByTagName("year").length;
+      var e = x[i].getElementsByTagName("price").length;
+      table += "<tr><td>";
+      for (a = 0; a < b; a++) {
+        table += x[i].getElementsByTagName("title")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      for (a = 0; a < c; a++) {
+        table += x[i].getElementsByTagName("author")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      for (a = 0; a < d; a++) {
+        table += x[i].getElementsByTagName("year")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      for (a = 0; a < e; a++) {
+        table += x[i].getElementsByTagName("price")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      table += x[i].getAttribute("upc") + "</td></tr>";
+    }
+    document.getElementById("demo").innerHTML = table;
+  }
+
+  function XMLplusUPC(a) {
+    var i;
+    var xmlDoc = a.responseXML;
+    var table = univTable;
+    var x = xmlDoc.getElementsByTagName("book");
+
+    var node = document.createElement("P");
+    var textnode = document.createTextNode("And now, we apply the barcodes to the various products in our bookstore.");
+    node.appendChild(textnode);
+    document.getElementById("divbody").appendChild(node);
+
+    for (i = 0; i < x.length; i++) {
+      var upcBin = ("00000000" + upcDec.toString(2)).slice(-8);
+      x[i].setAttribute("upc", upcBin);
+      // window.alert(x[i].innerHTML)
+      upcDec++;
+    }
+
+    for (i = 0; i < x.length; i++) {
+      var b = x[i].getElementsByTagName("title").length;
+      var c = x[i].getElementsByTagName("author").length;
+      var d = x[i].getElementsByTagName("year").length;
+      var e = x[i].getElementsByTagName("price").length;
+      table += "<tr><td>";
+      for (a = 0; a < b; a++) {
+        table += x[i].getElementsByTagName("title")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      for (a = 0; a < c; a++) {
+        table += x[i].getElementsByTagName("author")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      for (a = 0; a < d; a++) {
+        table += x[i].getElementsByTagName("year")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      for (a = 0; a < e; a++) {
+        table += x[i].getElementsByTagName("price")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      table += x[i].getAttribute("upc") + "</td></tr>";
+    }
+
+    var x = document.createElement('TABLE');
+    x.setAttribute('id', 'UPC_table');
+    document.getElementById('divbody').appendChild(x);
+    document.getElementById('UPC_table').innerHTML = table;
+  }
+
+  function reduceYear(a) {
+    var i;
+    var xmlDoc = a.responseXML;
+    var table = univTable;
+    var x = xmlDoc.getElementsByTagName("book");
+
+    var node = document.createElement("P");
+    var textnode = document.createTextNode(
+      "And now, we implement the glorious calendar of the Democratic People's Republic of Arstotzka, where we pretend the rough and touble decade of 'Troubles' has never occurred. Much glory to the Comrade General-Secretary!");
+    node.appendChild(textnode);
+    document.getElementById("divbody").appendChild(node);
+
+    for (i = 0; i < x.length; i++) {
+      var upcBin = ("00000000" + upcDec.toString(2)).slice(-8);
+      x[i].setAttribute("upc", upcBin);
+      // window.alert(x[i].innerHTML)
+      upcDec++;
+      var year = parseInt(x[i].getElementsByTagName("year")[0].childNodes[0].nodeValue);
+      year = year - 10;
+      x[i].getElementsByTagName("year")[0].childNodes[0].nodeValue = year;
+      /* this should make all the years -10 */
+    }
+
+    for (i = 0; i < x.length; i++) {
+      var b = x[i].getElementsByTagName("title").length;
+      var c = x[i].getElementsByTagName("author").length;
+      var d = x[i].getElementsByTagName("year").length;
+      var e = x[i].getElementsByTagName("price").length;
+      table += "<tr><td>";
+      for (a = 0; a < b; a++) {
+        table += x[i].getElementsByTagName("title")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      for (a = 0; a < c; a++) {
+        table += x[i].getElementsByTagName("author")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      for (a = 0; a < d; a++) {
+        table += x[i].getElementsByTagName("year")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      for (a = 0; a < e; a++) {
+        table += x[i].getElementsByTagName("price")[a].childNodes[0].nodeValue + "<br />";
+      }
+      table += "</td><td>"
+      table += x[i].getAttribute("upc") + "</td></tr>";
+    }
+
+    var x = document.createElement('TABLE');
+    x.setAttribute('id', 'finalTable');
+    document.getElementById('divbody').appendChild(x);
+    document.getElementById('finalTable').innerHTML = table;
+  }
+</script>
+
+</html>
