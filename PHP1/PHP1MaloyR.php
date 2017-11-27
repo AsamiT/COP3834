@@ -80,7 +80,7 @@
   echo "<h4>Now, what if we used two true values?</h4>";
   echo "$a XOR NOT($b): ";
   echo $h;
-  echo "This is 1 XOR 1, therefore not a valid XOR function, hence it is false."
+  echo "<br />This is 1 XOR 1, therefore not a valid XOR function, hence it is false."
 
   ?>
 
