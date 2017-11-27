@@ -85,9 +85,9 @@
   <div class="content" id="divbody">
 
     <body>
-      <h1>This Is Some Questionable Nonsense?!</h1>
-      <p>
-        In what universe is it better to <i>delete a node</i> and then add a new one... than to just do on the fly modifications? What kind of HTML are we learning here?!
+      <h1>Kaiser Wilhelm's Weimar Eatery</h1>
+      <p id="weimar">
+
       </p>
       <p id="notice">
 
@@ -100,160 +100,140 @@
 </div>
 
 <script>
-  var univTable = "<tr><th>Title</th><th>Author</th><th>Year</th><th>Price (USD)</th><th>Barcode</th></tr>";
-  var upcDec = 9;
-  var stage = 0;
-
   function exec() {
     document.getElementById('main').classList.add('hide');
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
-        printXML(this);
-        XMLplusUPC(this);
-        reduceYear(this);
+        judea(this);
+        weimar(this);
       }
     }
-    xmlhttp.open("GET", "books.xml", true);
+    xmlhttp.open("GET", "breakfast.xml", true);
     xmlhttp.send();
   }
 
-  function printXML(a) {
-    var i;
+  function judea(a) {
     var xmlDoc = a.responseXML;
-    var table = univTable;
-    var x = xmlDoc.getElementsByTagName("book");
+    var txt = ""
+    var x, y, z, newItem, newNode, newPrice, newDesc, newCal;
 
-    document.getElementById('notice').innerHTML = "We have recieved a shipment, but we don't have a single UPC code in the system yet, and our new calendar as mandated by the Supreme Leader of the Politburo is out of date. We must fix this immediately!";
+    x = xmlDoc.documentElement;
 
-    for (i = 0; i < x.length; i++) {
-      var b = x[i].getElementsByTagName("title").length;
-      var c = x[i].getElementsByTagName("author").length;
-      var d = x[i].getElementsByTagName("year").length;
-      var e = x[i].getElementsByTagName("price").length;
-      table += "<tr><td>";
-      for (a = 0; a < b; a++) {
-        table += x[i].getElementsByTagName("title")[a].childNodes[0].nodeValue + "<br />";
+    newNode = xmlDoc.createElement("food");
+    newItem = xmlDoc.createElement("name");
+    newPrice = xmlDoc.createElement("price");
+    newDesc = xmlDoc.createElement("description");
+    newCal = xmlDoc.createElement("calories");
+
+    var nameText = xmlDoc.createTextNode("Yiddish Bagel");
+    var priceText = xmlDoc.createTextNode("$8.99");
+    var DescText = xmlDoc.createTextNode("A lovely wheat bagel with lox on it.");
+    var CalText = xmlDoc.createTextNode("375");
+
+    newItem.appendChild(nameText);
+    newPrice.appendChild(priceText);
+    newDesc.appendChild(DescText);
+    newCal.appendChild(CalText);
+
+    newNode.appendChild(newItem);
+    newNode.appendChild(newPrice);
+    newNode.appendChild(newDesc);
+    newNode.appendChild(newCal);
+
+    y = xmlDoc.getElementsByTagName("food")[0];
+    x.replaceChild(newNode, y);
+    b = xmlDoc.getElementsByTagName("name");
+    c = xmlDoc.getElementsByTagName("price");
+    d = xmlDoc.getElementsByTagName("description");
+    e = xmlDoc.getElementsByTagName("calories");
+
+    for (var i = 0; i < b.length; i++) {
+      txt += "<b>" + b[i].childNodes[0].nodeValue + "</b>" + "<br>";
+      if (i < c.length) {
+        txt += "Price: " + c[i].childNodes[0].nodeValue + "<br>";
       }
-      table += "</td><td>"
-      for (a = 0; a < c; a++) {
-        table += x[i].getElementsByTagName("author")[a].childNodes[0].nodeValue + "<br />";
+      if (i < d.length) {
+        txt += "Description: " + d[i].childNodes[0].nodeValue + "<br>";
       }
-      table += "</td><td>"
-      for (a = 0; a < d; a++) {
-        table += x[i].getElementsByTagName("year")[a].childNodes[0].nodeValue + "<br />";
+      if (i < e.length) {
+        txt += "Calories: " + e[i].childNodes[0].nodeValue + "<br>";
       }
-      table += "</td><td>"
-      for (a = 0; a < e; a++) {
-        table += x[i].getElementsByTagName("price")[a].childNodes[0].nodeValue + "<br />";
-      }
-      table += "</td><td>"
-      table += x[i].getAttribute("upc") + "</td></tr>";
+      txt += "<hr>";
     }
-    document.getElementById("demo").innerHTML = table;
+
+    document.getElementById("notice").innerHTML = txt;
   }
 
-  function XMLplusUPC(a) {
-    var i;
+  function weimar(a) {
+
+    document.getElementById('weimar').innerHTML = "<b>Our country has erupted into open revolution, our political system has been abolished by the forces of extremism, and we are now shattered! Our economy is in ruins, and we are going to struggle to make ends meet. Food costs have increased! What woe!</b><hr>"
+
     var xmlDoc = a.responseXML;
-    var table = univTable;
-    var x = xmlDoc.getElementsByTagName("book");
+    var txt = ""
+    var x, y, z, newItem, newNode, newPrice, newDesc, newCal;
+    var num;
+    x = xmlDoc.documentElement;
 
-    var node = document.createElement("P");
-    var textnode = document.createTextNode("And now, we apply the barcodes to the various products in our bookstore.");
-    node.appendChild(textnode);
-    document.getElementById("divbody").appendChild(node);
+    newNode = xmlDoc.createElement("food");
+    newItem = xmlDoc.createElement("name");
+    newPrice = xmlDoc.createElement("price");
+    newDesc = xmlDoc.createElement("description");
+    newCal = xmlDoc.createElement("calories");
 
-    for (i = 0; i < x.length; i++) {
-      var upcBin = ("00000000" + upcDec.toString(2)).slice(-8);
-      x[i].setAttribute("upc", upcBin);
-      // window.alert(x[i].innerHTML)
-      upcDec++;
+    var nameText = xmlDoc.createTextNode("Yiddish Bagel");
+    var priceText = xmlDoc.createTextNode("$8.99");
+    var DescText = xmlDoc.createTextNode("A lovely wheat bagel with lox on it.");
+    var CalText = xmlDoc.createTextNode("375");
+
+    newItem.appendChild(nameText);
+    newPrice.appendChild(priceText);
+    newDesc.appendChild(DescText);
+    newCal.appendChild(CalText);
+
+    newNode.appendChild(newItem);
+    newNode.appendChild(newPrice);
+    newNode.appendChild(newDesc);
+    newNode.appendChild(newCal);
+
+    y = xmlDoc.getElementsByTagName("food")[0];
+    x.replaceChild(newNode, y);
+    b = xmlDoc.getElementsByTagName("name");
+    c = xmlDoc.getElementsByTagName("price");
+    var len = c.length;
+    d = xmlDoc.getElementsByTagName("description");
+    e = xmlDoc.getElementsByTagName("calories");
+
+    for (var i = 0; i < b.length; i++) {
+      txt += "<b>" + b[i].childNodes[0].nodeValue + "</b>" + "<br>";
+      if (i < len) {
+        txt += "Old Price: " + c[i].childNodes[0].nodeValue + "<br>";
+        replacePrice(i, c[i].childNodes[0].nodeValue, xmlDoc);
+        txt += "New Price: " + c[i].childNodes[0].nodeValue + "<br>";
+      }
+      if (i < d.length) {
+        txt += "Description: " + d[i].childNodes[0].nodeValue + "<br>";
+      }
+      if (i < e.length) {
+        txt += "Calories: " + e[i].childNodes[0].nodeValue + "<br>";
+      }
+      txt += "<hr>";
     }
 
-    for (i = 0; i < x.length; i++) {
-      var b = x[i].getElementsByTagName("title").length;
-      var c = x[i].getElementsByTagName("author").length;
-      var d = x[i].getElementsByTagName("year").length;
-      var e = x[i].getElementsByTagName("price").length;
-      table += "<tr><td>";
-      for (a = 0; a < b; a++) {
-        table += x[i].getElementsByTagName("title")[a].childNodes[0].nodeValue + "<br />";
-      }
-      table += "</td><td>"
-      for (a = 0; a < c; a++) {
-        table += x[i].getElementsByTagName("author")[a].childNodes[0].nodeValue + "<br />";
-      }
-      table += "</td><td>"
-      for (a = 0; a < d; a++) {
-        table += x[i].getElementsByTagName("year")[a].childNodes[0].nodeValue + "<br />";
-      }
-      table += "</td><td>"
-      for (a = 0; a < e; a++) {
-        table += x[i].getElementsByTagName("price")[a].childNodes[0].nodeValue + "<br />";
-      }
-      table += "</td><td>"
-      table += x[i].getAttribute("upc") + "</td></tr>";
-    }
-
-    var x = document.createElement('TABLE');
-    x.setAttribute('id', 'UPC_table');
-    document.getElementById('divbody').appendChild(x);
-    document.getElementById('UPC_table').innerHTML = table;
+  document.getElementById("notice").innerHTML = txt;
   }
 
-  function reduceYear(a) {
-    var i;
-    var xmlDoc = a.responseXML;
-    var table = univTable;
-    var x = xmlDoc.getElementsByTagName("book");
-
-    var node = document.createElement("P");
-    var textnode = document.createTextNode(
-      "And now, we implement the glorious calendar of the Democratic People's Republic of Arstotzka, where we pretend the rough and touble decade of 'Troubles' has never occurred. Much glory to the Comrade General-Secretary!");
-    node.appendChild(textnode);
-    document.getElementById("divbody").appendChild(node);
-
-    for (i = 0; i < x.length; i++) {
-      var upcBin = ("00000000" + upcDec.toString(2)).slice(-8);
-      x[i].setAttribute("upc", upcBin);
-      // window.alert(x[i].innerHTML)
-      upcDec++;
-      var year = parseInt(x[i].getElementsByTagName("year")[0].childNodes[0].nodeValue);
-      year = year - 10;
-      x[i].getElementsByTagName("year")[0].childNodes[0].nodeValue = year;
-      /* this should make all the years -10 */
-    }
-
-    for (i = 0; i < x.length; i++) {
-      var b = x[i].getElementsByTagName("title").length;
-      var c = x[i].getElementsByTagName("author").length;
-      var d = x[i].getElementsByTagName("year").length;
-      var e = x[i].getElementsByTagName("price").length;
-      table += "<tr><td>";
-      for (a = 0; a < b; a++) {
-        table += x[i].getElementsByTagName("title")[a].childNodes[0].nodeValue + "<br />";
-      }
-      table += "</td><td>"
-      for (a = 0; a < c; a++) {
-        table += x[i].getElementsByTagName("author")[a].childNodes[0].nodeValue + "<br />";
-      }
-      table += "</td><td>"
-      for (a = 0; a < d; a++) {
-        table += x[i].getElementsByTagName("year")[a].childNodes[0].nodeValue + "<br />";
-      }
-      table += "</td><td>"
-      for (a = 0; a < e; a++) {
-        table += x[i].getElementsByTagName("price")[a].childNodes[0].nodeValue + "<br />";
-      }
-      table += "</td><td>"
-      table += x[i].getAttribute("upc") + "</td></tr>";
-    }
-
-    var x = document.createElement('TABLE');
-    x.setAttribute('id', 'finalTable');
-    document.getElementById('divbody').appendChild(x);
-    document.getElementById('finalTable').innerHTML = table;
+  function replacePrice(a, b, x) {
+    var str = b.substring(1,b.length);
+    var newVal = parseFloat(str).toFixed(2);
+    var num = parseFloat(newVal) + parseFloat(newVal * 0.10);
+    num = num.toFixed(2);
+    var root = x.getElementsByTagName('price')[a];
+    root.parentNode.removeChild(root);
+    var elem = x.createElement("price");
+    var newVar = x.createTextNode("$" + num);
+    elem.appendChild(newVar);
+    x.getElementsByTagName('food')[a].appendChild(elem);
   }
 </script>
 
