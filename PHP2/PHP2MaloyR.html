@@ -1,8 +1,8 @@
 <!--
   Robert Maloy
   COP 3834C-01 Web Application Development
-  PHP1
-  23 November 2017 -->
+  PHP2
+  2 December 2017 -->
 
 <html>
 <meta charset="utf-8">
@@ -30,17 +30,21 @@
       color: #ffa26e;
     }
 
+    small {
+      color: #a2ff77;
+    }
+
     img.portrait {
       margin-bottom: 3mm;
+    }
+
+    div.deploy {
+      margin-bottom: 10px;
     }
 
     p,
     div * {
       max-width: 800px;
-    }
-
-    div.deploy {
-      margin-bottom: 10px;
     }
 
     table,
@@ -61,7 +65,7 @@
 
       display: block;
       background-image: url("https://i.imgur.com/XEcy6DF.jpg");
-      background-position: center 70% !important;
+      background-position: center 90% !important;
       background-repeat: no-repeat !important;
       width: 100%;
       height: 100%;
@@ -100,7 +104,7 @@
 
     <script type="text/javascript">
          $(function(){
-           $.get("PHP1MaloyR.php", function(data){
+           $.get("PHP2MaloyR.php", function(data){
                document.getElementById('divbody').innerHTML = data;
            });
         });
