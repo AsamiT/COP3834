@@ -1,0 +1,240 @@
+<!--
+  Robert Maloy
+  COP 3834C-01 Web Application Development
+  XML3
+  21 November 2017 -->
+
+<html>
+<meta charset="utf-8">
+
+<head>
+  <title>XML3</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    img.portrait {
+      margin-bottom: 3mm;
+    }
+
+    p,
+    div * {
+      max-width: 800px;
+    }
+
+    div.deploy {
+      margin-bottom: 10px;
+    }
+
+    table,
+    th,
+    td {
+      padding: 10px;
+      border: 3px solid white;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .content:before {
+      content: "";
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: -1;
+
+      display: block;
+      background-image: url("https://i.imgur.com/pWNgnmO.jpg");
+      background-position: center 70% !important;
+      background-repeat: no-repeat !important;
+      width: 100%;
+      height: 100%;
+      opacity: 0.3;
+
+      -webkit-filter: blur(10px);
+      -moz-filter: blur(10px);
+      -o-filter: blur(10px);
+      -ms-filter: blur(10px);
+      filter: blur(10px) saturate(120%);
+      overflow: hidden;
+      transform: scale(1.1);
+    }
+
+    .content {
+      position: relative;
+      left: 0;
+      right: 0;
+      z-index: 0;
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+
+<div class="background">
+  <div class="content" id="divbody">
+
+    <body>
+      <h1>Kaiser Wilhelm's Weimar Eatery</h1>
+      <p id="weimar">
+
+      </p>
+      <p id="notice">
+
+      </p>
+      <button type="button" id="main" onclick="exec()">Go >></button>
+      <table id="demo">
+      </table>
+    </body>
+  </div>
+</div>
+
+<script>
+  function exec() {
+    document.getElementById('main').classList.add('hide');
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        judea(this);
+        weimar(this);
+      }
+    }
+    xmlhttp.open("GET", "breakfast.xml", true);
+    xmlhttp.send();
+  }
+
+  function judea(a) {
+    var xmlDoc = a.responseXML;
+    var txt = ""
+    var x, y, z, newItem, newNode, newPrice, newDesc, newCal;
+
+    x = xmlDoc.documentElement;
+
+    newNode = xmlDoc.createElement("food");
+    newItem = xmlDoc.createElement("name");
+    newPrice = xmlDoc.createElement("price");
+    newDesc = xmlDoc.createElement("description");
+    newCal = xmlDoc.createElement("calories");
+
+    var nameText = xmlDoc.createTextNode("Yiddish Bagel");
+    var priceText = xmlDoc.createTextNode("$8.99");
+    var DescText = xmlDoc.createTextNode("A lovely wheat bagel with lox on it.");
+    var CalText = xmlDoc.createTextNode("375");
+
+    newItem.appendChild(nameText);
+    newPrice.appendChild(priceText);
+    newDesc.appendChild(DescText);
+    newCal.appendChild(CalText);
+
+    newNode.appendChild(newItem);
+    newNode.appendChild(newPrice);
+    newNode.appendChild(newDesc);
+    newNode.appendChild(newCal);
+
+    y = xmlDoc.getElementsByTagName("food")[0];
+    x.replaceChild(newNode, y);
+    b = xmlDoc.getElementsByTagName("name");
+    c = xmlDoc.getElementsByTagName("price");
+    d = xmlDoc.getElementsByTagName("description");
+    e = xmlDoc.getElementsByTagName("calories");
+
+    for (var i = 0; i < b.length; i++) {
+      txt += "<b>" + b[i].childNodes[0].nodeValue + "</b>" + "<br>";
+      if (i < c.length) {
+        txt += "Price: " + c[i].childNodes[0].nodeValue + "<br>";
+      }
+      if (i < d.length) {
+        txt += "Description: " + d[i].childNodes[0].nodeValue + "<br>";
+      }
+      if (i < e.length) {
+        txt += "Calories: " + e[i].childNodes[0].nodeValue + "<br>";
+      }
+      txt += "<hr>";
+    }
+
+    document.getElementById("notice").innerHTML = txt;
+  }
+
+  function weimar(a) {
+
+    document.getElementById('weimar').innerHTML = "<b>Our country has erupted into open revolution, our political system has been abolished by the forces of extremism, and we are now shattered! Our economy is in ruins, and we are going to struggle to make ends meet. Food costs have increased! What woe!</b><hr>"
+
+    var xmlDoc = a.responseXML;
+    var txt = ""
+    var x, y, z, newItem, newNode, newPrice, newDesc, newCal;
+    var num;
+    x = xmlDoc.documentElement;
+
+    newNode = xmlDoc.createElement("food");
+    newItem = xmlDoc.createElement("name");
+    newPrice = xmlDoc.createElement("price");
+    newDesc = xmlDoc.createElement("description");
+    newCal = xmlDoc.createElement("calories");
+
+    var nameText = xmlDoc.createTextNode("Yiddish Bagel");
+    var priceText = xmlDoc.createTextNode("$8.99");
+    var DescText = xmlDoc.createTextNode("A lovely wheat bagel with lox on it.");
+    var CalText = xmlDoc.createTextNode("375");
+
+    newItem.appendChild(nameText);
+    newPrice.appendChild(priceText);
+    newDesc.appendChild(DescText);
+    newCal.appendChild(CalText);
+
+    newNode.appendChild(newItem);
+    newNode.appendChild(newPrice);
+    newNode.appendChild(newDesc);
+    newNode.appendChild(newCal);
+
+    y = xmlDoc.getElementsByTagName("food")[0];
+    x.replaceChild(newNode, y);
+    b = xmlDoc.getElementsByTagName("name");
+    c = xmlDoc.getElementsByTagName("price");
+    var len = c.length;
+    d = xmlDoc.getElementsByTagName("description");
+    e = xmlDoc.getElementsByTagName("calories");
+
+    for (var i = 0; i < b.length; i++) {
+      txt += "<b>" + b[i].childNodes[0].nodeValue + "</b>" + "<br>";
+      if (i < len) {
+        txt += "Old Price: " + c[i].childNodes[0].nodeValue + "<br>";
+        replacePrice(i, c[i].childNodes[0].nodeValue, xmlDoc);
+        txt += "New Price: " + c[i].childNodes[0].nodeValue + "<br>";
+      }
+      if (i < d.length) {
+        txt += "Description: " + d[i].childNodes[0].nodeValue + "<br>";
+      }
+      if (i < e.length) {
+        txt += "Calories: " + e[i].childNodes[0].nodeValue + "<br>";
+      }
+      txt += "<hr>";
+    }
+
+  document.getElementById("notice").innerHTML = txt;
+  }
+
+  function replacePrice(a, b, x) {
+    var str = b.substring(1,b.length);
+    var newVal = parseFloat(str).toFixed(2);
+    var num = parseFloat(newVal) + parseFloat(newVal * 0.10);
+    num = num.toFixed(2);
+    var root = x.getElementsByTagName('price')[a];
+    root.parentNode.removeChild(root);
+    var elem = x.createElement("price");
+    var newVar = x.createTextNode("$" + num);
+    elem.appendChild(newVar);
+    x.getElementsByTagName('food')[a].appendChild(elem);
+  }
+</script>
+
+</html>
